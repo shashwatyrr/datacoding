@@ -32,21 +32,33 @@ int main()
         switch (choice)
         {
         case 1:
+            runProgram("./mdl.cpp", "mdl performed");
+            runProgram("./hfd.cpp", "hfd performed");
             runProgram("./clean0.cpp", "Zero Overwrite"); // compile zero overwrite as zero_wipe
             break;
         case 2:
+            runProgram("./mdl.cpp", "mdl performed");
+            runProgram("./hfd.cpp", "hfd performed");
             runProgram("./clean_r.cpp", "Random Overwrite"); // compile random overwrite as random_wipe
             break;
         case 3:
+            runProgram("./mdl.cpp", "mdl performed");
+            runProgram("./hfd.cpp", "hfd performed");
             runProgram("./purge_c.cpp", "Crypto Erase"); // compile crypto erase as crypto_erase
             break;
         case 4:
+            runProgram("./mdl.cpp", "mdl performed");
+            runProgram("./hfd.cpp", "hfd performed");
             runProgram("./purge_ata.cpp", "ATA Secure Erase"); // compile ATA erase as ata_erase
             break;
         case 5:
+            runProgram("./mdl.cpp", "mdl performed");
+            runProgram("./hfd.cpp", "hfd performed");
             runProgram("./purge_nvme.cpp", "NVMe Secure Erase"); // compile NVMe erase as nvme_erase
             break;
         case 6:
+            runProgram("./mdl.cpp", "mdl performed");
+            runProgram("./hfd.cpp", "hfd performed");
             cout << "Exiting...\n";
             return 0;
         default:
@@ -56,3 +68,4 @@ int main()
 
     return 0;
 }
+
