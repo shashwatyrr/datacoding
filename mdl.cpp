@@ -34,6 +34,18 @@ string execCommand(const char *cmd)
     return result; // Return the full command output as a string
 }
 
+/*
+    Function: getDiskSpace
+    -----------------------
+    Gets the disk space usage information using the `df` command.
+    - Returns a string containing the output of the df command.
+*/
+string getDiskSpace(const string& path)
+{
+    string command = "df -h " + path; // df command to get disk usage in human-readable form
+    return execCommand(command.c_str());
+}
+
 int main()
 {
     try
@@ -60,7 +72,14 @@ int main()
         txtfile << devicesText << "\n\n";
 
         // -------------------------------
-        // Step 2: Get detailed SMART info
+        // Step 2: Get disk space before deletion
+        // -------------------------------
+        txtfile << "=== Disk Space Before Deletion ===\n";
+        string spaceBefore = getDiskSpace("/"); // Root directory for space usage
+        txtfile << spaceBefore << "\n";
+
+        // -------------------------------
+        // Step 3: Get detailed SMART info
         // -------------------------------
         // Extract only disk names (not partitions) using awk
         string deviceList = execCommand("lsblk -nd -o NAME,TYPE | awk '$2==\"disk\" {print $1}'");
@@ -85,7 +104,22 @@ int main()
         }
 
         // -------------------------------
-        // Step 3: Write JSON report
+        // Here, simulate deletion (replace with actual deletion logic)
+        // For example, remove a file or partition (here, we just use echo to simulate)
+        // -------------------------------
+        txtfile << "=== Simulated Deletion ===\n";
+        execCommand("rm -rf /path/to/some/large/file"); // Example deletion (replace with actual command)
+        txtfile << "Simulated deletion executed.\n";
+
+        // -------------------------------
+        // Step 4: Get disk space after deletion
+        // -------------------------------
+        txtfile << "=== Disk Space After Deletion ===\n";
+        string spaceAfter = getDiskSpace("/"); // Check space again after deletion
+        txtfile << spaceAfter << "\n";
+
+        // -------------------------------
+        // Step 5: Write JSON report
         // -------------------------------
         // Final JSON will contain:
         //   1. lsblk device list
@@ -102,7 +136,9 @@ int main()
             jsonfile << "\n";
         }
 
-        jsonfile << "  ]\n";
+        jsonfile << "  ],\n";
+        jsonfile << "  \"disk_space_before\": \"" << spaceBefore << "\",\n";
+        jsonfile << "  \"disk_space_after\": \"" << spaceAfter << "\"\n";
         jsonfile << "}\n";
 
         // Close files
